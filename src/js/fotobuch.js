@@ -27,7 +27,6 @@ function initWindow(){
 	$('.button_prev_page').click(prevpage);
 	addPictures();
 	addElements();
-	addTexts();
 	selectarrow();
 	setPicturesDraggable();
 	$('.book').droppable({
@@ -42,14 +41,26 @@ function initWindow(){
 	deactivateElement();
 }
 function addElements(){
+	pe = [];
 	$.each( elements, function( key, element ) {
-		addElement(element.id,element.top*zoom,element.left*zoom,element.width*zoom,element.height*zoom,element.rotate,element.pid);
+		pe.push(element);
 	});
-}
-function addTexts(){
+	te = [];
 	$.each( textElements, function( key, element ) {
-		addTextElement(element.id,element.top*zoom,element.left*zoom,element.rotate,element.text,element.size);
+		te.push(element);
 	});
+	te.sort(function(a,b){return a.Z-b.Z});
+	pe.sort(function(a,b){return a.Z-b.Z});
+	
+	for(i=0,j=0;i<pe.length || j<te.length;){
+		if(j==te.length || (i<pe.length && pe[i].Z < te[j].Z)){
+			element = pe[i++];
+			addElement(element.id,element.top*zoom,element.left*zoom,element.width*zoom,element.height*zoom,element.rotate,element.pid);
+		}else{
+			element = te[j++];
+			addTextElement(element.id,element.top*zoom,element.left*zoom,element.rotate,element.text,element.size);
+		}
+	}
 }
 function addPictures(){
 	var length = pictureids.length;   
@@ -316,6 +327,11 @@ function layerdown(){
 	if(activeElement != null){
 		var idx = activeElement.index();
 		if(idx>0){
+			sendJSON({
+				'id':activeElement.attr('id'),
+				'action':'swapz',
+				'swapid':activeElement.prev().attr('id')
+			});
 			activeElement.prev().before(activeElement);
 		}
 	}
@@ -324,6 +340,11 @@ function layerup(){
 	if(activeElement != null){
 		var idx = activeElement.index();
 		if(idx<activeElement.siblings().length){
+			sendJSON({
+				'id':activeElement.attr('id'),
+				'action':'swapz',
+				'swapid':activeElement.next().attr('id')
+			});
 			activeElement.next().after(activeElement);
 		}
 	}
@@ -331,11 +352,19 @@ function layerup(){
 function layertop(){
 	if(activeElement != null){
 		activeElement.parent().append(activeElement);
+		sendJSON({
+			'id':activeElement.attr('id'),
+			'action':'layertop'
+		});
 	}
 }
 function layerbottom(){
 	if(activeElement != null){
 		activeElement.parent().prepend(activeElement);
+		sendJSON({
+			'id':activeElement.attr('id'),
+			'action':'layerbottom'
+		});
 	}
 }
 
@@ -398,7 +427,7 @@ function prevpage(){
 	}
 }
 function showpage(){
-	$('.pagetitle').html('Seite '+page);
+	$('.pagetitle').html('Page '+page);
 	$('.book').empty();
 	var mypage = page
 	$.get( "ajax/getPage.php?p="+page,null, function( data ) {
@@ -406,7 +435,6 @@ function showpage(){
 			elements = data.elements;
 			textElements = data.textElements;
 			addElements();
-			addTexts();
 			selectarrow();
 			deactivateElement();
 		}

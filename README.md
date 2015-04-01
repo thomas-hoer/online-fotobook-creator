@@ -1,15 +1,17 @@
 # online-fotobook-creator
 
-This is a simple tool to create a physical fotobook.
+This is a simple tool to create a physical photobook.
 Server Code is written in PHP and uses the MySQL Database.
-Client Code is wirtten in JavaScript/jQuery.
+Client Code is written in JavaScript/jQuery.
+
+__Please note:__ This Project is in an early state of development, so you might encounter some bugs as well as unimplemented functions. Also, further development states might not be compatible with this version.
 
 [Livedemo](http://online-fotobook-creator.de)
 
 ## Features
 
 * Photo upload
-* Move and rotate Pictures and Text-Elements
+* Move (X,Y,Z) and rotate Pictures and Text-Elements
 * Zoom Pages
 * Next/Previous Page
 * Support for Touch Devices
@@ -31,12 +33,12 @@ If you like this Project, you can make a donation:
 
 ## Roadmap
 
-* Export to Cewe Fotobook File
-* Export to other 
+* Export to Cewe Photobook File
+* Export to other Manufacturer
 * Undo Redo
 * Organize Pictures
-* Store Z-Index on Server
 * Mask Pictures
-* Adminstration
+* Administration
 * UI for Mobil/Touch Devices
 * Install File
+* Image Import from various Sources

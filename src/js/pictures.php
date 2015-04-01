@@ -6,7 +6,7 @@ require('../php/sql.php');
 
 if($SessionID>0){
 
-	$abfrage = "SELECT ID FROM ".$prefix."Bild WHERE Session_ID = '".$SessionID."'";
+	$abfrage = "SELECT ID FROM ".$prefix."Picture WHERE User_ID = '".$AccountID."' ORDER BY ID ASC";
 	$ergebnis=$mysqli->query($abfrage);
 	$out = array();
 	while($nachricht = $ergebnis->fetch_object()){
@@ -23,7 +23,7 @@ if($SessionID>0){
 	echo "var elementID = ".$maxid.";\n";
 	
 	
-	$abfrage = "SELECT `Name` AS `id`,`X` AS `left`,`Y` AS `top`,`W` AS `width`,`H` AS `height`,`R` AS `rotate`,`Bild_ID` AS `pid` FROM ".$prefix."Element WHERE Seite_ID = '1' ORDER BY `Z` ASC";
+	$abfrage = "SELECT `Name` AS `id`,`X` AS `left`,`Y` AS `top`,`W` AS `width`,`H` AS `height`,`R` AS `rotate`,`Bild_ID` AS `pid`,Z FROM ".$prefix."Element WHERE Seite_ID = '1' ORDER BY `Z` ASC";
 	$ergebnis=$mysqli->query($abfrage);
 	$out = array();
 	while($nachricht = $ergebnis->fetch_object()){
@@ -33,6 +33,7 @@ if($SessionID>0){
 		$nachricht->height = floatval($nachricht->height);
 		$nachricht->rotate = floatval($nachricht->rotate);
 		$nachricht->pid = intval($nachricht->pid);
+		$nachricht->Z = intval($nachricht->Z);
 
 		$out[$nachricht->id]=$nachricht;
 	}
@@ -47,7 +48,7 @@ if($SessionID>0){
 	echo "var textID = ".$maxid.";\n";
 	
 	
-	$abfrage = "SELECT `Name` AS `id`,`X` AS `left`,`Y` AS `top`,`R` AS `rotate`,`Text` AS `text`,`Size` AS `size` FROM ".$prefix."Text WHERE Seite_ID = '1' AND `Text` <> '' ORDER BY `Z` ASC";
+	$abfrage = "SELECT `Name` AS `id`,`X` AS `left`,`Y` AS `top`,`R` AS `rotate`,`Text` AS `text`,`Size` AS `size`,Z FROM ".$prefix."Text WHERE Seite_ID = '1' AND `Text` <> '' ORDER BY `Z` ASC";
 	$ergebnis=$mysqli->query($abfrage);
 	$out = array();
 	while($nachricht = $ergebnis->fetch_object()){
@@ -55,6 +56,7 @@ if($SessionID>0){
 		$nachricht->top = floatval($nachricht->top);
 		$nachricht->rotate = floatval($nachricht->rotate);
 		$nachricht->size = intval($nachricht->size);
+		$nachricht->Z = intval($nachricht->Z);
 
 		$out[$nachricht->id]=$nachricht;
 	}
