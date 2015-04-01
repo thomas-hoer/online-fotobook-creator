@@ -1,0 +1,4 @@
+RewriteEngine on 
+
+
+RewriteRule ^(.*)$ ../getpicture.php?f=pictures&s=$1&%{QUERY_STRING}
