@@ -33,17 +33,17 @@ foreach($json as $item) {
 			break;
 			case 'addimg':
 				$z = getMaxZFromPage($item->{'page'});
-				$mysqli->query("INSERT INTO ".$prefix."Element (Session_ID,Name,X,Y,Z,Bild_ID,User_ID,W,H,R,Seite_ID) VALUES ('".$SessionID."','".$id."','".floatval($item->{'left'})."','".floatval($item->{'top'})."','".$z."','".floatval($item->{'pid'})."','".$AccountID."','".floatval($item->{'width'})."','".floatval($item->{'height'})."','".floatval($item->{'rotate'})."','".intval($item->{'page'})."')");
+				$mysqli->query("INSERT INTO ".$prefix."Element (Name,X,Y,Z,PictureID,UserID,W,H,R,PageID) VALUES ('".$id."','".floatval($item->{'left'})."','".floatval($item->{'top'})."','".$z."','".floatval($item->{'pid'})."','".$AccountID."','".floatval($item->{'width'})."','".floatval($item->{'height'})."','".floatval($item->{'rotate'})."','".intval($item->{'page'})."')");
 			break;
 			case 'addtext':
-				$mysqli->query("INSERT INTO ".$prefix."Text (Session_ID,Name,X,Y,User_ID,Text,R,Size,Seite_ID) VALUES ('".$SessionID."','".$id."','".floatval($item->{'left'})."','".floatval($item->{'top'})."','".$AccountID."','','".floatval($item->{'rotate'})."','".intval($item->{'size'})."','".intval($item->{'page'})."')");
+				$mysqli->query("INSERT INTO ".$prefix."Text (Name,X,Y,UserID,Text,R,Size,PageID) VALUES ('".$id."','".floatval($item->{'left'})."','".floatval($item->{'top'})."','".$AccountID."','','".floatval($item->{'rotate'})."','".intval($item->{'size'})."','".intval($item->{'page'})."')");
 			break;
 			case 'layertop':
-				$z = getMaxZFromPage($obj->Seite_ID);
+				$z = getMaxZFromPage($obj->PageID);
 				updateZ($z);
 			break;
 			case 'layerbottom':
-				$z = getMinZFromPage($obj->Seite_ID);
+				$z = getMinZFromPage($obj->PageID);
 				updateZ($z);
 			break;
 			case 'swapz':
@@ -93,17 +93,17 @@ $mysqli->query("INSERT INTO ".$prefix."CMD (CMD) VALUES ('".$str."')");
 
 function getMaxZFromPage($page){
 	global $prefix,$mysqli;
-	$result = $mysqli->query("SELECT Max(Z) FROM ".$prefix."Element WHERE Seite_ID = '".intval($page)."'");
+	$result = $mysqli->query("SELECT Max(Z) FROM ".$prefix."Element WHERE PageID = '".intval($page)."'");
 	$row1 = $result->fetch_array();
-	$result = $mysqli->query("SELECT Max(Z) FROM ".$prefix."Text WHERE Seite_ID = '".intval($page)."'");
+	$result = $mysqli->query("SELECT Max(Z) FROM ".$prefix."Text WHERE PageID = '".intval($page)."'");
 	$row2 = $result->fetch_array();
 	return max($row1[0],$row2[0])+1;
 }
 function getMinZFromPage($page){
 	global $prefix,$mysqli;
-	$result = $mysqli->query("SELECT Min(Z) FROM ".$prefix."Element WHERE Seite_ID = '".intval($page)."'");
+	$result = $mysqli->query("SELECT Min(Z) FROM ".$prefix."Element WHERE PageID = '".intval($page)."'");
 	$row1 = $result->fetch_array();
-	$result = $mysqli->query("SELECT Min(Z) FROM ".$prefix."Text WHERE Seite_ID = '".intval($page)."'");
+	$result = $mysqli->query("SELECT Min(Z) FROM ".$prefix."Text WHERE PageID = '".intval($page)."'");
 	$row2 = $result->fetch_array();
 	return max($row1[0],$row2[0])-1;
 }

@@ -8,7 +8,7 @@ if($SessionID>0 && $_FILES['file']['tmp_name']){
 	if($Bilddaten){
 		$OriginalBreite = $Bilddaten[0];
 		$OriginalHoehe = $Bilddaten[1];
-		$mysqli->query("INSERT INTO ".$prefix."Picture (W,H,Session_ID,User_ID,Name,NameOnServer) VALUES ('".$OriginalBreite."','".$OriginalHoehe."','".$SessionID."','".$AccountID."','".$Filename."','')");
+		$mysqli->query("INSERT INTO ".$prefix."Picture (W,H,UserID,Name,NameOnServer) VALUES ('".$OriginalBreite."','".$OriginalHoehe."','".$AccountID."','".$Filename."','')");
 		$id = $mysqli->insert_id;
 		$mysqli->query("UPDATE ".$prefix."Picture SET NameOnServer = '".$id.".jpg' WHERE ID = '".$id."'");
 		$bild = $id.".jpg";

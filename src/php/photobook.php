@@ -6,10 +6,10 @@
 <script type="text/javascript" src="js/jquery.ui.touch-punch.min.js"></script>
 <script type="text/javascript" src="js/jquery-rotate.js"> </script>
 <script type="text/javascript" src="js/pictures.php"> </script>
-<script type="text/javascript" src="js/fotobuch.js"> </script>
+<script type="text/javascript" src="js/photobook.js"> </script>
 <script type="text/javascript" src="js/upload.js"> </script>
 <script type="text/javascript" src="js/resize.js"> </script>
-<link rel="stylesheet" type="text/css" href="css/fotobuch.css"/>
+<link rel="stylesheet" type="text/css" href="css/photobook.css"/>
 </head>
 <body>
 <div class="pictures">

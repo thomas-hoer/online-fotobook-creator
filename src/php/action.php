@@ -7,7 +7,7 @@ if($_REQUEST['type']=='login'){
 	if($result->num_rows == 1){
 		$row = $result->fetch_object();
 		$AccountID = $row->ID;
-		$mysqli->query("UPDATE ".$prefix."Session SET User_ID = '".$AccountID."' WHERE ID = '".$SessionID."'");
+		$mysqli->query("UPDATE ".$prefix."Session SET UserID = '".$AccountID."' WHERE ID = '".$SessionID."'");
 		header('Location: intern'); 
 		$_REQUEST['s']='intern';
 	}
@@ -21,14 +21,14 @@ if($_REQUEST['type']=='login'){
 		if($result->num_rows == 0){
 			$mysqli->query("INSERT INTO ".$prefix."User (Name,Password_SHA1) VALUES ('".$login."','".$pw1."')");
 			$AccountID = $mysqli->insert_id;
-			$mysqli->query("UPDATE ".$prefix."Session SET User_ID = '".$AccountID."' WHERE ID = '".$SessionID."'");
+			$mysqli->query("UPDATE ".$prefix."Session SET UserID = '".$AccountID."' WHERE ID = '".$SessionID."'");
 			header('Location: intern'); 
 			$_REQUEST['s']='intern';
 		}
 	}
 	
 }else if($_REQUEST['type']=='logout'){
-	$mysqli->query("UPDATE ".$prefix."Session SET User_ID = '0' WHERE ID = '".$SessionID."'");
+	$mysqli->query("UPDATE ".$prefix."Session SET UserID = '0' WHERE ID = '".$SessionID."'");
 	$AccountID = 0;
 	header('Location: index'); 
 	$_REQUEST['s']='index';

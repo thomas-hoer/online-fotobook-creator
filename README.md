@@ -42,3 +42,4 @@ If you like this Project, you can make a donation:
 * UI for Mobil/Touch Devices
 * Install File
 * Image Import from various Sources
+* Add / Delete Photobooks

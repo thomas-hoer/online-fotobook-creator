@@ -5,7 +5,7 @@ if($SessionID>0){
 
 	$page = intval($_REQUEST['p']);
 
-	$abfrage = "SELECT `Name` AS `id`,`X` AS `left`,`Y` AS `top`,`W` AS `width`,`H` AS `height`,`R` AS `rotate`,`Bild_ID` AS `pid` FROM ".$prefix."Element WHERE Seite_ID = '".$page."' ORDER BY `Z` ASC";
+	$abfrage = "SELECT `Name` AS `id`,`X` AS `left`,`Y` AS `top`,`W` AS `width`,`H` AS `height`,`R` AS `rotate`,`PictureID` AS `pid` FROM ".$prefix."Element WHERE PageID = '".$page."' ORDER BY `Z` ASC";
 	$ergebnis=$mysqli->query($abfrage);
 	$pics = array();
 	while($nachricht = $ergebnis->fetch_object()){
@@ -22,7 +22,7 @@ if($SessionID>0){
 	
 
 	
-	$abfrage = "SELECT `Name` AS `id`,`X` AS `left`,`Y` AS `top`,`R` AS `rotate`,`Text` AS `text`,`Size` AS `size` FROM ".$prefix."Text WHERE Seite_ID = '".$page."' AND `Text` <> '' ORDER BY `Z` ASC";
+	$abfrage = "SELECT `Name` AS `id`,`X` AS `left`,`Y` AS `top`,`R` AS `rotate`,`Text` AS `text`,`Size` AS `size` FROM ".$prefix."Text WHERE PageID = '".$page."' AND `Text` <> '' ORDER BY `Z` ASC";
 	$ergebnis=$mysqli->query($abfrage);
 	$texts = array();
 	while($nachricht = $ergebnis->fetch_object()){

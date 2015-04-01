@@ -1,5 +1,5 @@
 <?php
-$prefix = "Fotobook_";
+$prefix = "Photobook_";
 $mysqli = new mysqli("host", "user", "password", "database");
 
 $token = $mysqli->real_escape_string($_COOKIE['Session']);
@@ -12,7 +12,7 @@ if(strlen($token)==64){
 	if($result->num_rows == 1){
 		$row = $result->fetch_object();
 		$SessionID = $row->ID;
-		$AccountID = $row->User_ID;
+		$AccountID = $row->UserID;
 	}
 }
 if($SessionID == 0){

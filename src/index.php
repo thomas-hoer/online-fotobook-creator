@@ -7,7 +7,7 @@ if(isset($_REQUEST['type'])){
 
 $s = $_REQUEST['s'];
 if($AccountID>0){
-	include('php/fotobuch.php');
+	include('php/photobook.php');
 }else{
 	if($s=='' || $s=='index'){
 		include('php/index.php');
