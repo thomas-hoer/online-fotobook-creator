@@ -95,6 +95,7 @@ CREATE TABLE IF NOT EXISTS `Photobook_User` (
   `ID` int(11) NOT NULL AUTO_INCREMENT,
   `Name` varchar(32) COLLATE latin1_german1_ci NOT NULL,
   `Password_SHA1` varchar(40) COLLATE latin1_german1_ci NOT NULL,
+  `Mail` varchar(128) COLLATE latin1_german1_ci NOT NULL,
   PRIMARY KEY (`ID`)
 ) ENGINE=MyISAM  DEFAULT CHARSET=latin1 COLLATE=latin1_german1_ci;
 

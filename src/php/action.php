@@ -15,12 +15,13 @@ switch($_REQUEST['type']){
 	break;
 	case 'register':
 		$login = $mysqli->real_escape_string($_REQUEST['login']);
+		$mail = $mysqli->real_escape_string($_REQUEST['mail']);
 		$pw1 = sha1($mysqli->real_escape_string($_REQUEST['password']));
 		$pw2 = sha1($mysqli->real_escape_string($_REQUEST['password2']));
 		if($login != '' && $pw1 == $pw2){
-			$result = $mysqli->query("SELECT ID FROM ".$prefix."User WHERE Name = '".$login."' AND Password_SHA1 = '".$pw."'");
+			$result = $mysqli->query("SELECT ID FROM ".$prefix."User WHERE Name = '".$login."'");
 			if($result->num_rows == 0){
-				$mysqli->query("INSERT INTO ".$prefix."User (Name,Password_SHA1) VALUES ('".$login."','".$pw1."')");
+				$mysqli->query("INSERT INTO ".$prefix."User (Name,Password_SHA1,Mail) VALUES ('".$login."','".$pw1."','".$mail."')");
 				$AccountID = $mysqli->insert_id;
 				$mysqli->query("UPDATE ".$prefix."Session SET UserID = '".$AccountID."' WHERE ID = '".$SessionID."'");
 				header('Location: index'); 
