@@ -7,6 +7,12 @@ SET time_zone = "+00:00";
 /*!40101 SET NAMES utf8 */;
 
 
+CREATE TABLE IF NOT EXISTS `Photobook_Book` (
+  `ID` int(11) NOT NULL AUTO_INCREMENT,
+  `Name` varchar(64) NOT NULL,
+  PRIMARY KEY (`ID`)
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
 CREATE TABLE IF NOT EXISTS `Photobook_CMD` (
   `ID` int(11) NOT NULL AUTO_INCREMENT,
   `CMD` text COLLATE latin1_german1_ci NOT NULL,
@@ -29,10 +35,26 @@ CREATE TABLE IF NOT EXISTS `Photobook_Element` (
   UNIQUE KEY `Name` (`Name`)
 ) ENGINE=MyISAM  DEFAULT CHARSET=latin1 COLLATE=latin1_german1_ci;
 
+CREATE TABLE IF NOT EXISTS `Photobook_Feedback` (
+  `ID` int(11) NOT NULL AUTO_INCREMENT,
+  `Time` int(11) NOT NULL,
+  `Text` text NOT NULL,
+  `UserID` int(11) NOT NULL,
+  PRIMARY KEY (`ID`)
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1;
+
+CREATE TABLE IF NOT EXISTS `Photobook_Gallery` (
+  `ID` int(11) NOT NULL AUTO_INCREMENT,
+  `UserID` int(11) NOT NULL,
+  `Name` varchar(64) NOT NULL,
+  PRIMARY KEY (`ID`)
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1;
+
 CREATE TABLE IF NOT EXISTS `Photobook_Page` (
   `ID` int(11) NOT NULL AUTO_INCREMENT,
-  `Seite` int(11) NOT NULL,
-  `Titel` varchar(64) COLLATE latin1_german1_ci NOT NULL,
+  `BookID` int(11) NOT NULL,
+  `Site` int(11) NOT NULL,
+  `Title` varchar(64) COLLATE latin1_german1_ci NOT NULL,
   PRIMARY KEY (`ID`)
 ) ENGINE=MyISAM DEFAULT CHARSET=latin1 COLLATE=latin1_german1_ci;
 
@@ -41,6 +63,7 @@ CREATE TABLE IF NOT EXISTS `Photobook_Picture` (
   `W` int(11) NOT NULL,
   `H` int(11) NOT NULL,
   `UserID` int(11) NOT NULL,
+  `GalleryID` int(11) NOT NULL,
   `Name` varchar(64) COLLATE latin1_german1_ci NOT NULL,
   `NameOnServer` varchar(64) COLLATE latin1_german1_ci NOT NULL,
   PRIMARY KEY (`ID`)
@@ -66,7 +89,7 @@ CREATE TABLE IF NOT EXISTS `Photobook_Text` (
   `UserID` int(11) NOT NULL,
   `Size` int(11) NOT NULL,
   PRIMARY KEY (`ID`)
-) ENGINE=MyISAM DEFAULT CHARSET=latin1 COLLATE=latin1_german1_ci;
+) ENGINE=MyISAM  DEFAULT CHARSET=latin1 COLLATE=latin1_german1_ci;
 
 CREATE TABLE IF NOT EXISTS `Photobook_User` (
   `ID` int(11) NOT NULL AUTO_INCREMENT,

@@ -1,3 +1,5 @@
 RewriteEngine on 
 
-RewriteRule ^([a-zA-Z_]*)$ index.php?f=pictures&s=$1&%{QUERY_STRING}
+RewriteRule ^([a-zA-Z_]*)$ index.php?s=$1&%{QUERY_STRING}
+
+RewriteRule ^gallery/([a-zA-Z_]*)$ index.php?s=gallery&id=$1&%{QUERY_STRING}

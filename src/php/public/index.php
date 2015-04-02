@@ -16,9 +16,9 @@ Online Fotobook Creator
 <form action="action" method="post" class="content">
 <input type="hidden" name="type" value="login"/>
 <input type="text" name="login" class="login" value="Login" /><br/><br/>
-<input type="text" name="password" class="password" value="Password" /><br/><br/>
+<input type="password" name="password" class="password" value="Password" /><br/><br/>
 <input type="submit" value="Login"/><br/><br/>
-<a href="register.html">New? Register</a>
+<a href="register">New? Register</a>
 </form>
 </body>
 </html>

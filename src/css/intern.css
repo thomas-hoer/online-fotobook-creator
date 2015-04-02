@@ -1,0 +1,123 @@
+body{
+	font-family:'Arial',sans-serif;
+	margin:0px;
+}
+.header{
+	background-color:#ACF;
+	font-size:18px;
+	padding-top:8px;
+	padding-bottom:4px;
+	color:#345;
+}
+.content{
+	margin-left: auto;
+	margin-right: auto;
+	max-width: 960px;
+}
+.logo{
+	width:40px;
+	height:32px;
+}
+.username{
+	float:right;
+	cursor: pointer;
+}
+.account-menu{
+	position:absolute;
+	border:1px solid #469;
+	background-color:#fff;
+	display:none;
+}
+.account-menu>a{
+	display:block;
+	text-decoration:none;
+	padding:5px;
+	color:black;
+}
+.account-menu>a:hover{
+	background-color:#BBB;
+}
+.menu{
+	background-color:#68B;
+	font-size:20px;
+}
+.menuentry{
+	padding:18px;
+	display:inline-block;
+	color:#BDF;
+	text-decoration:none;
+}
+.menuentry:hover{
+	padding:18px;
+	display:inline-block;
+	color:#BDF;
+	text-decoration:none;
+	background:#79C;
+}
+.active-menuentry{
+	background:#469;
+}
+.active-menuentry:hover{
+	background:#57A;
+}
+.body{
+	margin-top:12px;
+	font-size:12px;
+	color:#345;
+}
+.body a,input[type="submit"]{
+	padding:12px;
+	margin:4px;
+	text-decoration:none;
+	font-size:150%;
+	background-color:#ACF;
+	border-radius:4px;
+	border:1px solid #68B;
+	display:inline-block;
+	color:#345;
+	cursor: pointer;
+}
+.body a:hover,input[type="submit"]:hover{
+	background-color:#BDF;
+}
+.boxes{
+	text-align:center;
+}
+.box{
+	margin-left:1%;
+	margin-right:1%;
+	display:inline-block;
+	width:30%;
+	background-color:#CCC;
+	min-height:250px;
+}
+.box>.boxheader{
+	margin-left:5%;
+	margin-right:5%;
+	margin-top:5%;
+	text-align:left;
+	font-weight:bold;
+	font-size:190%;
+}
+.box>img{
+	margin:4%;
+}
+textarea{
+	width:100%;
+}
+.msg-success{
+	background-color:#AFA;
+	border-radius:4px;
+	border:1px solid #6B8;
+	display:block;
+	padding:10px;
+	color:#354;
+}
+.msg-fail{
+	background-color:#FAA;
+	border-radius:4px;
+	border:1px solid #B68;
+	display:block;
+	padding:10px;
+	color:#534;
+}

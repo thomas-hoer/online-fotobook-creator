@@ -6,7 +6,15 @@ function setLogin(){
 		login.css({'color':'black'});
 		login.val('');
 	});
-
+}
+function setEmail(){
+	var mail = $('.mail');
+	mail.val('E-Mail');
+	mail.css({'color':'#888'});
+	mail.one( 'focus', function() {
+		mail.css({'color':'black'});
+		mail.val('');
+	});
 }
 function setPassword(){
 	var password = $('.password');
@@ -18,7 +26,6 @@ function setPassword(){
 		password.val('');
 		password.attr('type','password');
 	});
-
 }
 function setPassword2(){
 	var password = $('.password2');
@@ -30,15 +37,20 @@ function setPassword2(){
 		password.val('');
 		password.attr('type','password');
 	});
-
 }
 function initWindow(){
 	setLogin();
+	setEmail();
 	setPassword();
 	setPassword2();
 	$('.login').focusout(function(){
 		if($('.login').val()==''){
 			setLogin();
+		}
+	});
+	$('.mail').focusout(function(){
+		if($('.mail').val()==''){
+			setEmail();
 		}
 	});
 	$('.password').focusout(function(){

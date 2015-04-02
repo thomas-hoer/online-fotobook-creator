@@ -1,18 +1,35 @@
 <?php
 require('php/sql.php');
-
+if($_REQUEST['s']=='logout'){
+	$_REQUEST['type']='logout';
+}
 if(isset($_REQUEST['type'])){
 	include('php/action.php');
 }
 
 $s = $_REQUEST['s'];
 if($AccountID>0){
-	include('php/photobook.php');
+	switch($s){
+		case 'photobook':
+		case 'photobooks':
+		case 'feedback':
+		case 'galleries':
+		case 'gallery':
+		case 'account':
+			include('php/private/'.$s.'.php');
+			break;
+		default:
+			include('php/private/index.php');
+			break;
+	}
 }else{
-	if($s=='' || $s=='index'){
-		include('php/index.php');
-	}else if($s=='register'){
-		include('php/register.php');
+	switch($s){
+		case 'register':
+			include('php/public/register.php');
+			break;
+		default:
+			include('php/public/index.php');
+			break;
 	}
 	
 }

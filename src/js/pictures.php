@@ -4,8 +4,8 @@ header('Content-type: text/javascript');
 require('../php/sql.php');
 
 
-if($SessionID>0){
-
+if($AccountID>0){
+	echo "var bookid = ".intval($_REQUEST['bid'])."\n";
 	$abfrage = "SELECT ID FROM ".$prefix."Picture WHERE UserID = '".$AccountID."' ORDER BY ID ASC";
 	$ergebnis=$mysqli->query($abfrage);
 	$out = array();
