@@ -26,6 +26,15 @@ switch($_REQUEST['type']){
 				$mysqli->query("UPDATE ".$prefix."Session SET UserID = '".$AccountID."' WHERE ID = '".$SessionID."'");
 				header('Location: index'); 
 				$_REQUEST['s']='index';
+			}else{
+				$error = "login_exists";
+			}
+		}else{
+			if($login == ''){
+				$error = "nologin";
+			}
+			if($pw1!=$pw2){
+				$error = "password_wrong";
 			}
 		}
 	break;

@@ -14,7 +14,20 @@
 				Online Fotobook Creator
 			</div>
 		</div>
-		<form action="action" method="post" class="content">
+		<?php
+			switch($error){
+				case 'login_exists':
+					echo '<div class="error">Loginname already exists</div>';
+				break;
+				case 'nologin':
+					echo '<div class="error">Please type in a Loginname</div>';
+				break;
+				case 'password_wrong':
+					echo '<div class="error">The control Password did not mach with the first Password</div>';
+				break;
+			}
+		?>
+		<form action="register" method="post" class="content">
 			<input type="hidden" name="type" value="register"/>
 			<input type="text" name="login" class="login" value="Login" /><br/><br/>
 			<input type="text" name="mail" class="mail" value="E-Mail" /><br/><br/>
