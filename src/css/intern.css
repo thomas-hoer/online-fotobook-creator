@@ -110,6 +110,40 @@ body{
 	background-color:#CCC;
 	min-height:250px;
 }
+.menuicon{
+	display:none;
+}
+@media screen and (max-width: 500px) {
+    .boxes2>.box, .boxes3>.box{
+        display:block;
+		width:96%;
+		padding:2%;
+		margin-left:0px;
+		margin-right:0px;
+		margin-bottom:10px;
+		min-height:0px;
+    }
+	.menu{
+		display:none;
+	}
+	.menuentry{
+		display:block;
+	}
+	.menuentry:hover{
+		display:block;
+	}
+	.menuicon{
+		display:inline-block;
+		float:right;
+		width:40px;
+		height:40px;
+		background-image: url("../gfx/menu.png");
+		cursor: pointer;
+	}
+	.username{
+		display:none;
+	}
+}
 .box>img{
 	margin:4%;
 }

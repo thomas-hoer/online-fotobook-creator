@@ -21,12 +21,13 @@ switch($_REQUEST['s']){
 }
 ?>
 <html>
-<head>
-<title>Online Photobook Creator</title>
-<script type="text/javascript" src="js/jquery-2.1.3.js"> </script>
-<script type="text/javascript" src="js/intern.js"> </script>
-<link rel="stylesheet" type="text/css" href="css/intern.css"/>
-</head>
+	<head>
+		<title>Online Photobook Creator</title>
+		<meta name="viewport" content="width=device-width, initial-scale=1">
+		<script type="text/javascript" src="js/jquery-2.1.3.js"> </script>
+		<script type="text/javascript" src="js/intern.js"> </script>
+		<link rel="stylesheet" type="text/css" href="css/intern.css"/>
+	</head>
 <body>
 <div class="header">
 	<div class="content">
@@ -34,6 +35,9 @@ switch($_REQUEST['s']){
 		Online Photobook Creator
 		<div class="username">
 		<?php echo $User->Name; ?>
+		</div>
+		<div class="menuicon">
+			
 		</div>
 	</div>
 </div>

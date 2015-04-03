@@ -76,6 +76,9 @@ function initWindow(){
 	setPassword('.pw1','New Password');
 	setPassword('.pw2','Repeat New Password');
 	$('.pwform').on("submit",checkForm);
+	$('.menuicon').click(function(){
+		$('.menu').slideToggle();
+	});
 }
 
 $(document).ready(initWindow);
