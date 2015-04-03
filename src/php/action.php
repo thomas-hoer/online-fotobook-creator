@@ -78,6 +78,26 @@ switch($_REQUEST['type']){
 			}
 		}
 	break;
+	case 'add-gallery':
+		if($AccountID>0){
+			$text = $mysqli->real_escape_string($_REQUEST['gallery-name']);
+			$mysqli->query("INSERT INTO ".$prefix."Gallery (UserID,Name,Created) VALUES ('".$AccountID."','".$text."','".time()."')");
+		}
+	break;
+	case 'delete-gallery':
+		if($AccountID>0){
+			$id = intval($_REQUEST['id']);
+			$result = $mysqli->query("SELECT NameOnServer FROM ".$prefix."Picture WHERE UserID = '".$AccountID."' AND GalleryID = '".$id."'");
+			while($row = $result->fetch_object()){
+				@unlink('pictures/'.$row->NameOnServer);
+				@unlink('thumb/'.$row->NameOnServer);
+				@unlink('preview/'.$row->NameOnServer);
+			}
+			$mysqli->query("DELETE FROM ".$prefix."Gallery WHERE UserID = '".$AccountID."' AND ID = '".$id."'");
+			$mysqli->query("DELETE FROM ".$prefix."Picture WHERE UserID = '".$AccountID."' AND GalleryID = '".$id."'");
+			
+		}
+	break;
 }
 
 	

@@ -11,7 +11,18 @@ if($AccountID>0){
 		if($result->num_rows == 1){
 			$row = $result->fetch_object();
 			header('Content-type: image/jpeg');
-			fpassthru(fopen($f."/".$row->NameOnServer,'r'));
+			$filename = $f."/".$row->NameOnServer;
+			if($_REQUEST['type']=='rect'){
+				
+				$ImageSize = getimagesize($filename);
+				$p = min($ImageSize[0],$ImageSize[1]);
+				$image = ImageCreateFromJPEG($filename);
+				$image2 = ImageCreateTrueColor(150, 150);
+				imagecopyresized($image2,$image,0,0,0,0,150,150,$p,$p);
+				imagejpeg($image2);
+			}else{
+				fpassthru(fopen($filename,'r'));
+			}
 			$pictureOK = true;
 		}
 	}
@@ -19,7 +30,7 @@ if($AccountID>0){
 
 if($pictureOK == false){
 	header('Content-type: image/png');
-	fpassthru(fopen("gfx/no-pic.png",'r'));
+	fpassthru(fopen("gfx/unallowed.png",'r'));
 }
 
 ?>
