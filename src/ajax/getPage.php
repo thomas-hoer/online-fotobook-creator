@@ -1,7 +1,7 @@
 <?php
 require('../php/sql.php');
 
-if($SessionID>0){
+if($AccountID>0){
 
 	$page = intval($_REQUEST['p']);
 

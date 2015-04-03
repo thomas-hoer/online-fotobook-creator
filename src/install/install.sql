@@ -47,6 +47,8 @@ CREATE TABLE IF NOT EXISTS `Photobook_Gallery` (
   `ID` int(11) NOT NULL AUTO_INCREMENT,
   `UserID` int(11) NOT NULL,
   `Name` varchar(64) NOT NULL,
+  `Public` tinyint(1) NOT NULL DEFAULT '0',
+  `Created` int(11) NOT NULL,
   PRIMARY KEY (`ID`)
 ) ENGINE=InnoDB  DEFAULT CHARSET=latin1;
 

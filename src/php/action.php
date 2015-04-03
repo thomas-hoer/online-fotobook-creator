@@ -24,7 +24,7 @@ switch($_REQUEST['type']){
 				$mysqli->query("INSERT INTO ".$prefix."User (Name,Password_SHA1,Mail) VALUES ('".$login."','".$pw1."','".$mail."')");
 				$AccountID = $mysqli->insert_id;
 				$mysqli->query("UPDATE ".$prefix."Session SET UserID = '".$AccountID."' WHERE ID = '".$SessionID."'");
-				$mysqli->query("INSERT INTO ".$prefix."Gallery (UserID,`Name`) VALUES ('".$AccountID."','Default Gallery')");
+				$mysqli->query("INSERT INTO ".$prefix."Gallery (UserID,`Name`,Created) VALUES ('".$AccountID."','Default Gallery','".time()."')");
 				header('Location: index'); 
 				$_REQUEST['s']='index';
 			}else{
@@ -110,6 +110,25 @@ switch($_REQUEST['type']){
 		$Gallery = $result->fetch_object();
 		$baseDir = "";
 		include('php/upload.php');
+	break;
+	case 'delete-picture':
+		if($AccountID>0){
+			$id = intval($_REQUEST['pid']);
+			$result = $mysqli->query("SELECT * FROM ".$prefix."Picture WHERE UserID = '".$AccountID."' AND ID = '".$id."'");
+			while($row = $result->fetch_object()){
+				@unlink('pictures/'.$row->NameOnServer);
+				@unlink('thumb/'.$row->NameOnServer);
+				@unlink('preview/'.$row->NameOnServer);
+				$mysqli->query("DELETE FROM ".$prefix."Picture WHERE UserID = '".$AccountID."' AND ID = '".$id."'");
+			}
+		}
+	break;
+	case 'update-gallery':
+		if($AccountID>0){
+			$name = $mysqli->real_escape_string($_REQUEST['name']);
+			$id = intval($_REQUEST['id']);
+			$mysqli->query("UPDATE ".$prefix."Gallery SET Name = '".$name."' WHERE UserID = '".$AccountID."' AND ID = '".$id."'");
+		}
 	break;
 }
 

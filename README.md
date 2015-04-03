@@ -11,6 +11,7 @@ __Please note:__ This Project is in an early state of development, so you might 
 ## Features
 
 * Photo upload
+* Organize Pictures
 * Move (X,Y,Z) and rotate Pictures and Text-Elements
 * Zoom Pages
 * Next/Previous Page
@@ -36,7 +37,6 @@ If you like this Project, you can make a donation:
 * Export to Cewe Photobook File
 * Export to other Manufacturer
 * Undo Redo
-* Organize Pictures
 * Mask Pictures
 * Administration
 * UI for Mobil/Touch Devices
