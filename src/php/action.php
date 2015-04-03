@@ -86,17 +86,30 @@ switch($_REQUEST['type']){
 	break;
 	case 'delete-gallery':
 		if($AccountID>0){
-			$id = intval($_REQUEST['id']);
-			$result = $mysqli->query("SELECT NameOnServer FROM ".$prefix."Picture WHERE UserID = '".$AccountID."' AND GalleryID = '".$id."'");
-			while($row = $result->fetch_object()){
-				@unlink('pictures/'.$row->NameOnServer);
-				@unlink('thumb/'.$row->NameOnServer);
-				@unlink('preview/'.$row->NameOnServer);
+			$result = $mysqli->query("SELECT COUNT(*) FROM ".$prefix."Gallery WHERE UserID = '".$AccountID."'");
+			$row = $result->fetch_array();
+			if($row[0]>1){
+				$id = intval($_REQUEST['id']);
+				$result = $mysqli->query("SELECT NameOnServer FROM ".$prefix."Picture WHERE UserID = '".$AccountID."' AND GalleryID = '".$id."'");
+				while($row = $result->fetch_object()){
+					@unlink('pictures/'.$row->NameOnServer);
+					@unlink('thumb/'.$row->NameOnServer);
+					@unlink('preview/'.$row->NameOnServer);
+				}
+				$mysqli->query("DELETE FROM ".$prefix."Gallery WHERE UserID = '".$AccountID."' AND ID = '".$id."'");
+				$mysqli->query("DELETE FROM ".$prefix."Picture WHERE UserID = '".$AccountID."' AND GalleryID = '".$id."'");
 			}
-			$mysqli->query("DELETE FROM ".$prefix."Gallery WHERE UserID = '".$AccountID."' AND ID = '".$id."'");
-			$mysqli->query("DELETE FROM ".$prefix."Picture WHERE UserID = '".$AccountID."' AND GalleryID = '".$id."'");
-			
 		}
+	break;
+	case 'upload-file':
+		$GalleryID = intval($_REQUEST['id']);
+		$result = $mysqli->query("SELECT ID FROM ".$prefix."Gallery WHERE ID = '".$GalleryID."' AND UserID = '".$AccountID."'");
+		if($result->num_rows == 0){
+			$result = $mysqli->query("SELECT ID FROM ".$prefix."Gallery WHERE UserID = '".$AccountID."' ORDER BY ID ASC LIMIT 1");
+		}
+		$Gallery = $result->fetch_object();
+		$baseDir = "";
+		include('php/upload.php');
 	break;
 }
 

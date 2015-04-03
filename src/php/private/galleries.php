@@ -10,8 +10,8 @@ $result = $mysqli->query("SELECT * FROM ".$prefix."Gallery WHERE UserID = '".$Ac
 		<form action="galleries" method="post" class="box">
 			<div class="boxheader">Create new Gallery:</div>
 			<input type="hidden" name="type" value="add-gallery"/>
-			<input type="text" name="gallery-name" value=""/>
-			<input type="submit" value="Submit"/>
+			<input type="text" name="gallery-name" value="Gallery Name"/>
+			<input type="submit" value="Create"/>
 		</form>
 		<h2>My Galleries</h2>
 		<div class="boxes3">

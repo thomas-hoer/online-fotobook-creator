@@ -167,7 +167,7 @@ body{
 .box>.gallerynopic{
 	width:88%;
 }
-.box>input[type="text"],.box>input[type="password"]{
+.box>input[type="text"],.box>input[type="password"],.box>input[type="file"]{
 	font-size: 28px;
 	width:90%;
 	margin-bottom:10px;
