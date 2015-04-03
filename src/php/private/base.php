@@ -1,6 +1,6 @@
 <?php
 
-function printHead(){
+function printHead($script = ''){
 global $User;
 $menuitem == 0;
 switch($_REQUEST['s']){
@@ -26,6 +26,7 @@ switch($_REQUEST['s']){
 		<meta name="viewport" content="width=device-width, initial-scale=1">
 		<script type="text/javascript" src="js/jquery-2.1.3.js"> </script>
 		<script type="text/javascript" src="js/intern.js"> </script>
+		<?php echo $script; ?>
 		<link rel="stylesheet" type="text/css" href="css/intern.css"/>
 	</head>
 <body>

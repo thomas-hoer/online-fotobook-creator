@@ -198,3 +198,22 @@ textarea{
 	color:#534;
 	margin-bottom:6px;
 }
+.piccontainer{
+	text-align:justify
+}
+.piccontainer>img{
+	height:150px;
+}
+.statusbar{
+	vertical-align: top;
+	height:148px;
+	width:148px;
+	display:inline-block;
+	border:1px solid black;
+}
+.progressBar>div{
+	background-color:#75FF6C;
+	border-top:1px solid black;
+	border-bottom:1px solid black;
+	border-right:1px solid black;
+}

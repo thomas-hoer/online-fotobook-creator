@@ -1,7 +1,9 @@
 <?php
 include "base.php";
-printHead();
 $GalleryID = intval($_REQUEST['id']);
+$script = '<script type="text/javascript" src="js/upload-picture-gallery.js"> </script>
+<script type="text/javascript">var galleryID ='.$GalleryID.'; </script>';
+printHead($script);
 $result = $mysqli->query("SELECT * FROM ".$prefix."Gallery WHERE ID = '".$GalleryID."' AND UserID = '".$AccountID."'");
 if($result->num_rows == 0){
 	$result = $mysqli->query("SELECT * FROM ".$prefix."Gallery WHERE UserID = '".$AccountID."' ORDER BY ID ASC LIMIT 1");
@@ -20,10 +22,10 @@ $result = $mysqli->query("SELECT * FROM ".$prefix."Picture WHERE GalleryID = '".
 			<input type="submit" value="Upload"/>
 		</form>
 
-		<p style="text-align:justify">
+		<p class="piccontainer">
 <?php
 while($row = $result->fetch_object()){
-echo '<img src="thumb/'.$row->NameOnServer.'" style="height:150px;" /> ';
+echo '<img src="thumb/'.$row->NameOnServer.'" /> ';
 }
 ?>
 		</p>
