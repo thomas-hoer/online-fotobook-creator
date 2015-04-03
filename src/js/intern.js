@@ -1,4 +1,44 @@
 var accountMenuActive = false;
+function setPassword(classname, text){
+	var dsptext = text;
+	var password = $(classname);
+	password.css({'color':'#888'});
+	password.val(text);
+	password.attr('type','text');
+	password.one( 'focus', function() {
+		password.css({'color':'black','background-color':'white'});
+		password.val('');
+		password.attr('type','password');
+	});
+	password.focusout(function(){
+		if($(classname).val()==''){
+			setPassword(classname, text);
+		}
+	});
+
+}
+function checkForm(){
+	var result = true;
+	if($('.pw1').val() != $('.pw2').val()){
+		result = false;
+		$('.pw1').css({'background-color':'#FBB'});
+		$('.pw2').css({'background-color':'#FBB'});
+	}
+	if($('.pw').val() == '' || $('.pw').val()=='Old Password'){
+		result = false;
+		$('.pw').css({'background-color':'#FBB'});
+	}
+	if($('.pw1').val() == '' || $('.pw1').val()=='New Password'){
+		result = false;
+		$('.pw1').css({'background-color':'#FBB'});
+	}
+	if($('.pw2').val() == '' || $('.pw2').val()=='Repeat New Password'){
+		result = false;
+		$('.pw2').css({'background-color':'#FBB'});
+	}
+	return result;
+}
+
 function toogleAccountMenu(){
 	if(accountMenuActive == true){
 		$('.account-menu').slideUp(150);
@@ -32,7 +72,10 @@ function initWindow(){
 	}else if(width < 352){
 		$('.content').css({'width': (width-30)+'px','padding':'14px'});*/
 	}
-
+	setPassword('.pw','Old Password');
+	setPassword('.pw1','New Password');
+	setPassword('.pw2','Repeat New Password');
+	$('.pwform').on("submit",checkForm);
 }
 
 $(document).ready(initWindow);

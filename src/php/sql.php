@@ -13,8 +13,12 @@ if(strlen($token)==64){
 		$row = $result->fetch_object();
 		$SessionID = $row->ID;
 		$AccountID = $row->UserID;
-		$result = $mysqli->query("SELECT ID,Name FROM ".$prefix."User WHERE ID = '".$AccountID."'");
-		$User = $result->fetch_object();
+		$result = $mysqli->query("SELECT ID,Name,Mail FROM ".$prefix."User WHERE ID = '".$AccountID."'");
+		if($result->num_rows == 1){
+			$User = $result->fetch_object();
+		}else{
+			$AccountID = 0;
+		}
 	}
 }
 if($SessionID == 0){

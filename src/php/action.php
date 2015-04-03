@@ -24,6 +24,7 @@ switch($_REQUEST['type']){
 				$mysqli->query("INSERT INTO ".$prefix."User (Name,Password_SHA1,Mail) VALUES ('".$login."','".$pw1."','".$mail."')");
 				$AccountID = $mysqli->insert_id;
 				$mysqli->query("UPDATE ".$prefix."Session SET UserID = '".$AccountID."' WHERE ID = '".$SessionID."'");
+				$mysqli->query("INSERT INTO ".$prefix."Gallery (UserID,`Name`) VALUES ('".$AccountID."','Default Gallery')");
 				header('Location: index'); 
 				$_REQUEST['s']='index';
 			}else{
@@ -39,8 +40,11 @@ switch($_REQUEST['type']){
 		}
 	break;
 	case 'logout':
-		$mysqli->query("UPDATE ".$prefix."Session SET UserID = '0' WHERE ID = '".$SessionID."'");
-		$AccountID = 0;
+		if($AccountID>0){
+			$mysqli->query("UPDATE ".$prefix."Session SET UserID = '0' WHERE ID = '".$SessionID."'");
+			$AccountID = 0;
+			$User = null;
+		}
 		header('Location: index'); 
 		$_REQUEST['s']='index';
 	break;
@@ -50,6 +54,28 @@ switch($_REQUEST['type']){
 			$sendFail = true;
 		}else{
 			$sendOK = $mysqli->query("INSERT INTO ".$prefix."Feedback (UserID,Text,Time) VALUES ('".$AccountID."','".$text."','".time()."')");
+		}
+	break;
+	case 'account-mail':
+		if($AccountID>0){
+			$mail = $mysqli->real_escape_string($_REQUEST['mail']);
+			$sendOK = $mysqli->query("UPDATE ".$prefix."User SET Mail = '".$mail."' WHERE ID = '".$AccountID."'");
+			if($sendOK){
+				$User->Mail = $mail;
+			}
+		}
+	break;
+	case 'account-pw':
+		if($AccountID>0){
+			$pw = sha1($mysqli->real_escape_string($_REQUEST['pw']));
+			$pw1 = sha1($mysqli->real_escape_string($_REQUEST['pw1']));
+			$pw2 = sha1($mysqli->real_escape_string($_REQUEST['pw2']));
+			if($pw1==$pw2 && $pw!=$pw1){
+				$result = $mysqli->query("SELECT ID FROM ".$prefix."User WHERE ID = '".$AccountID."' AND Password_SHA1 = '".$pw."'");
+				if($result->num_rows == 1){
+					$sendOK = $mysqli->query("UPDATE ".$prefix."User SET Password_SHA1 = '".$pw1."' WHERE ID = '".$AccountID."'");
+				}
+			}
 		}
 	break;
 }

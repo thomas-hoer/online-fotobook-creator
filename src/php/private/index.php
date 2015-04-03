@@ -15,7 +15,7 @@ printHead();
 		<h2>
 			Latest Galleries
 		</h2>
-		<div class="boxes">
+		<div class="boxes3">
 			<div class="box">
 				<div class="boxheader">wtf</div>
 				<img src="gfx/logo_small.png" class="logo"/>

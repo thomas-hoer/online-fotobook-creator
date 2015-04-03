@@ -8,7 +8,7 @@
 	</head>
 	<body>
 		<div class="logo">
-			<a href="/"><img src="gfx/logo_small.png" class="logoimg" /></a>
+			<a href="index"><img src="gfx/logo_small.png" class="logoimg" /></a>
 			<div class="title">
 				Register for <br/>
 				Online Fotobook Creator
