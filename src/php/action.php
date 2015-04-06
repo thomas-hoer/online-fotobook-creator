@@ -82,14 +82,22 @@ switch($_REQUEST['type']){
 		if($AccountID>0){
 			$text = $mysqli->real_escape_string($_REQUEST['gallery-name']);
 			$mysqli->query("INSERT INTO ".$prefix."Gallery (UserID,Name,Created) VALUES ('".$AccountID."','".$text."','".time()."')");
+			$_REQUEST['s']='gallery';
+			$_REQUEST['id']=$mysqli->insert_id;
+		}
+	break;
+	case 'add-photobook':
+		if($AccountID>0){
+			$text = $mysqli->real_escape_string($_REQUEST['photobook-name']);
+			$mysqli->query("INSERT INTO ".$prefix."Book (UserID,Name,Created) VALUES ('".$AccountID."','".$text."','".time()."')");
 		}
 	break;
 	case 'delete-gallery':
 		if($AccountID>0){
+		$id = intval($_REQUEST['id']);
 			$result = $mysqli->query("SELECT COUNT(*) FROM ".$prefix."Gallery WHERE UserID = '".$AccountID."'");
 			$row = $result->fetch_array();
 			if($row[0]>1){
-				$id = intval($_REQUEST['id']);
 				$result = $mysqli->query("SELECT NameOnServer FROM ".$prefix."Picture WHERE UserID = '".$AccountID."' AND GalleryID = '".$id."'");
 				while($row = $result->fetch_object()){
 					@unlink('pictures/'.$row->NameOnServer);
@@ -97,7 +105,24 @@ switch($_REQUEST['type']){
 					@unlink('preview/'.$row->NameOnServer);
 				}
 				$mysqli->query("DELETE FROM ".$prefix."Gallery WHERE UserID = '".$AccountID."' AND ID = '".$id."'");
+				$mysqli->query("DELETE FROM `".$prefix."Element` WHERE PictureID IN ( SELECT ID FROM `".$prefix."Picture` WHERE UserID = '".$AccountID."' AND GalleryID = '".$id."')");
 				$mysqli->query("DELETE FROM ".$prefix."Picture WHERE UserID = '".$AccountID."' AND GalleryID = '".$id."'");
+			}
+		}
+	break;
+	case 'delete-photobook':
+		if($AccountID>0){
+			$id = intval($_REQUEST['id']);
+			$result = $mysqli->query("SELECT * FROM ".$prefix."Book WHERE ID='".$id."' AND UserID = '".$AccountID."'");
+			if($result->num_rows == 1){
+				$row = $result->fetch_object();
+				if($row->Bild != ''){
+					@unlink('preview-book/'.$row->Bild);
+				}
+				$mysqli->query("DELETE FROM ".$prefix."Book WHERE UserID = '".$AccountID."' AND ID = '".$id."'");
+				$mysqli->query("DELETE FROM ".$prefix."Page WHERE UserID = '".$AccountID."' AND BookID = '".$id."'");
+				$mysqli->query("DELETE FROM ".$prefix."Element WHERE UserID = '".$AccountID."' AND BookID = '".$id."'");
+				$mysqli->query("DELETE FROM ".$prefix."Text WHERE UserID = '".$AccountID."' AND BookID = '".$id."'");
 			}
 		}
 	break;

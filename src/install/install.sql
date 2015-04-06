@@ -21,7 +21,7 @@ CREATE TABLE IF NOT EXISTS `Photobook_CMD` (
 
 CREATE TABLE IF NOT EXISTS `Photobook_Element` (
   `ID` int(11) NOT NULL AUTO_INCREMENT,
-  `PageID` int(11) NOT NULL,
+  `Page` int(11) NOT NULL,
   `Name` varchar(64) COLLATE latin1_german1_ci NOT NULL,
   `X` double NOT NULL,
   `Y` double NOT NULL,
@@ -81,7 +81,7 @@ CREATE TABLE IF NOT EXISTS `Photobook_Session` (
 
 CREATE TABLE IF NOT EXISTS `Photobook_Text` (
   `ID` int(11) NOT NULL AUTO_INCREMENT,
-  `PageID` int(11) NOT NULL,
+  `Page` int(11) NOT NULL,
   `Name` varchar(64) COLLATE latin1_german1_ci NOT NULL,
   `X` double NOT NULL,
   `Y` double NOT NULL,

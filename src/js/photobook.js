@@ -81,17 +81,19 @@ function addText(event){
 		var posLeft = event.pageX - 241 +$('.content').scrollLeft();
 		var posTop = event.pageY - 71 +$('.content').scrollTop();
 		textID ++;
-		textElements['text'+textID] = {
-			'id':'text'+textID,
+		var textName = 't'+bookid+'-'+textID;
+		textElements[textName] = {
+			'id':textName,
 			'top' : (posTop/zoom),
 			'left' : (posLeft/zoom),
 			'size':20,
 			'rotate':0,
 			'text':""
 		};
-		addTextElement('text'+textID,posTop,posLeft,0,"",20);
+		addTextElement(textName,posTop,posLeft,0,"",20);
 		sendJSON({
-			'id':'text'+textID,
+			'id':textName,
+			'bid':bookid,
 			'action':'addtext',
 			'size':20,
 			'top' : (posTop/zoom),
@@ -138,8 +140,9 @@ function addImage(event, ui){
 	var picWidth = ui.draggable.width();
 	var picHeight = ui.draggable.height();
 	elementID ++;
-	elements['element'+elementID] = {
-		"id":'element'+elementID,
+	var elementName = 'e'+bookid+'-'+elementID;
+	elements[elementName] = {
+		"id":elementName,
 		"pid":picid,
 		'width' : (picWidth/zoom),
 		'height' : (picHeight/zoom),
@@ -147,9 +150,10 @@ function addImage(event, ui){
 		'left' : (posLeft/zoom),
 		'rotate' : 0
 	};
-	addElement('element'+elementID,posTop,posLeft,picWidth,picHeight,0,picid);
+	addElement(elementName,posTop,posLeft,picWidth,picHeight,0,picid);
 	sendJSON({
-		'id':'element'+elementID,
+		'id':elementName,
+		'bid':bookid,
 		'action':'addimg',
 		'pid':picid,
 		'width' : (picWidth/zoom),
@@ -178,6 +182,7 @@ function addElement(eid,posTop,posLeft,picWidth,picHeight,rotate,picid){
 function removeActiveElement(){
 	sendJSON({
 		"id":activeElement.attr('id'),
+		"bid":bookid,
 		"action":"remove"
 	});
 	activeElement.remove();
@@ -203,6 +208,7 @@ function updatePosition(){
 		element.left = $(this).position().left/zoom;
 		sendJSON({
 			"id":$(this).attr('id'),
+			"bid":bookid,
 			"top":element.top,
 			"left":element.left
 		});
@@ -212,6 +218,7 @@ function updatePosition(){
 		element.left = $(this).position().left/zoom;
 		sendJSON({
 			"id":$(this).attr('id'),
+			"bid":bookid,
 			"top":element.top,
 			"left":element.left
 		});
@@ -223,6 +230,7 @@ function updateText(){
 	element.text = $(this).html();
 	sendJSON({
 		"id":$(this).parent().attr('id'),
+		"bid":bookid,
 		"text":$(this).html()
 	});
 }
@@ -329,6 +337,7 @@ function layerdown(){
 		if(idx>0){
 			sendJSON({
 				'id':activeElement.attr('id'),
+				'bid':bookid,
 				'action':'swapz',
 				'swapid':activeElement.prev().attr('id')
 			});
@@ -342,6 +351,7 @@ function layerup(){
 		if(idx<activeElement.siblings().length){
 			sendJSON({
 				'id':activeElement.attr('id'),
+				'bid':bookid,
 				'action':'swapz',
 				'swapid':activeElement.next().attr('id')
 			});
@@ -354,6 +364,7 @@ function layertop(){
 		activeElement.parent().append(activeElement);
 		sendJSON({
 			'id':activeElement.attr('id'),
+			'bid':bookid,
 			'action':'layertop'
 		});
 	}
@@ -363,6 +374,7 @@ function layerbottom(){
 		activeElement.parent().prepend(activeElement);
 		sendJSON({
 			'id':activeElement.attr('id'),
+			'bid':bookid,
 			'action':'layerbottom'
 		});
 	}
@@ -399,6 +411,7 @@ function textSizeEditor(fontSize){
 		activeElement.find('.text').css({'font-size':Math.ceil(zoom*fontSize/10)+'%'});
 		sendJSON({
 			"id":activeElement.attr('id'),
+			"bid":bookid,
 			"size":fontSize
 		});
 	}
@@ -408,6 +421,7 @@ function textSizeEditor(fontSize){
 		focusElement.css({'font-size':Math.ceil(zoom*fontSize/10)+'%'});
 		sendJSON({
 			"id":focusElement.parent().attr('id'),
+			"bid":bookid,
 			"size":fontSize
 		});
 
@@ -430,7 +444,7 @@ function showpage(){
 	$('.pagetitle').html('Page '+page);
 	$('.book').empty();
 	var mypage = page
-	$.get( "ajax/getPage.php?p="+page,null, function( data ) {
+	$.get( "ajax/getPage.php?b="+bookid+"&p="+page,null, function( data ) {
 		if(mypage == page){
 			elements = data.elements;
 			textElements = data.textElements;

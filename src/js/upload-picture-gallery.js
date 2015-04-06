@@ -15,6 +15,7 @@ function initFileUpload()
 	{
 		e.preventDefault();
 		var files = e.originalEvent.dataTransfer.files;
+		$('.no-pictures').css({'display':'none'});
 		handleFileUpload(files);
 	});
 }

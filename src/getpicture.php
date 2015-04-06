@@ -26,6 +26,21 @@ if($AccountID>0){
 			$pictureOK = true;
 		}
 	}
+	if($f == "preview-book"){
+		if($s == ''){
+			header('Content-type: image/png');
+			fpassthru(fopen('gfx/logo.png','r'));
+		}else{
+			$result = $mysqli->query("SELECT Bild FROM ".$prefix."Book WHERE UserID = '".$AccountID."' AND Bild = '".$s."'");
+			if($result->num_rows == 1){
+				$row = $result->fetch_object();
+				header('Content-type: image/jpeg');
+				$filename = $f."/".$row->NameOnServer;
+				fpassthru(fopen($filename,'r'));
+				$pictureOK = true;
+			}
+		}
+	}
 }
 
 if($pictureOK == false){

@@ -1,6 +1,8 @@
 <?php
 include "base.php";
 printHead();
+$stmt = $mysqli->prepare("SELECT NameOnServer FROM ".$prefix."Picture WHERE GalleryID=? ORDER BY ID DESC LIMIT 4");
+$result = $mysqli->query("SELECT * FROM ".$prefix."Gallery WHERE UserID = '".$AccountID."' ORDER BY ID ASC LIMIT 3");
 ?>
 		<h1>
 			Wellcome Stranger,
@@ -16,27 +18,33 @@ printHead();
 			Latest Galleries
 		</h2>
 		<div class="boxes3">
-			<div class="box">
-				<div class="boxheader">wtf</div>
-				<img src="gfx/logo_small.png" class="logo"/>
-				<img src="gfx/logo_small.png" class="logo"/>
-				<img src="gfx/logo_small.png" class="logo"/>
-				<img src="gfx/logo_small.png" class="logo"/>
-			</div>
-			<div class="box">
-				<div class="boxheader">wtf2</div>
-				<img src="gfx/logo_small.png" class="logo"/>
-				<img src="gfx/logo_small.png" class="logo"/>
-				<img src="gfx/logo_small.png" class="logo"/>
-				<img src="gfx/logo_small.png" class="logo"/>
-			</div>
-			<div class="box">
-				<div class="boxheader">wtf2</div>
-				<img src="gfx/logo_small.png" class="logo"/>
-				<img src="gfx/logo_small.png" class="logo"/>
-				<img src="gfx/logo_small.png" class="logo"/>
-				<img src="gfx/logo_small.png" class="logo"/>
-			</div>
+<?php
+while($row = $result->fetch_object()){
+	if($row->Name == ''){$row->Name = 'Unnamed Gallery';}
+echo '
+			<a href="gallery-'.$row->ID.'" class="box">
+				<div class="boxheader">'.$row->Name.'
+				</div>';
+	$stmt->bind_param("i", $row->ID);
+    $stmt->execute();
+	$stmt->store_result();
+	if($stmt->num_rows == 0){
+echo '
+					<img src="gfx/no-picture.png" class="gallerynopic"/>
+';
+	}else{
+		$stmt->bind_result($filename);
+		while($stmt->fetch()){
+echo '
+					<img src="thumb/'.$filename.'?type=rect" class="gallerypic"/>
+';
+		}
+	}
+echo'
+			</a>
+';
+}
+?>
 		</div>
 <?php
 printFoot();

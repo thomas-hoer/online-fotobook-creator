@@ -26,6 +26,13 @@ if($_REQUEST['action']=='edit'){
 		</form>
 			
 
+<?php
+if($result->num_rows==0){
+echo '
+		<h2 class="no-pictures">There are no Pictures in this Gallery</h2>
+';
+}
+?>
 		<p class="piccontainer">
 <?php
 while($row = $result->fetch_object()){
@@ -47,10 +54,17 @@ echo '			<img src="thumb/'.$row->NameOnServer.'" />
 		<form action="gallery-<?php echo $GalleryID; ?>" enctype="multipart/form-data" method="post" class="box">
 			<div class="boxheader">Upload Picture</div>
 			<input type="hidden" name="type" value="upload-file"/>
-			<input type="file" name="file" value=""/>
+			<input type="file" name="file" value="" accept="image/*;capture=camera"/>
 			<input type="submit" value="Upload"/>
 		</form>
-
+<?php
+if($result->num_rows==0){
+echo '
+		<h2 class="no-pictures">There are no Pictures in this Gallery</h2>
+';
+}
+?>
+		
 		<p class="piccontainer">
 <?php
 while($row = $result->fetch_object()){
@@ -59,7 +73,8 @@ echo '<img src="thumb/'.$row->NameOnServer.'" /> ';
 ?>
 		</p>
 		<p>
-			<a href="gallery-<?php echo $Gallery->ID; ?>-edit" class="box">Edit Gallery</a>
+			<a href="gallery-<?php echo $Gallery->ID; ?>-edit" class="box">Edit </a>
+			<a href="galleries?type=delete-gallery&id=<?php echo $Gallery->ID; ?>" class="box">Delete</a>
 		</p>
 <?php
 }
