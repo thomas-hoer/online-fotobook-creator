@@ -18,7 +18,7 @@ $result = $mysqli->query("SELECT * FROM ".$prefix."Book WHERE UserID = '".$Accou
 while($row = $result->fetch_object()){
 	if($row->Name == ''){$row->Name = 'Unnamed Photobook';}
 echo '
-			<a href="photobook-'.$row->ID.'" class="box">
+			<a href="photobook-'.$row->ID.'" target="_blank" class="box">
 				<div class="boxheader">'.$row->Name.'
 				</div>
 				<img src="preview-book/'.$row->Bild.'" class="gallerynopic"/>

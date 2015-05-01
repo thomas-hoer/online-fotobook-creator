@@ -11,7 +11,7 @@ __Please note:__ This Project is in an early state of development, so you might 
 ## Features
 
 * Photo upload
-* Organize Pictures
+* Organize Pictures / Photobooks
 * Move (X,Y,Z) and rotate Pictures and Text-Elements
 * Zoom Pages
 * Next/Previous Page
@@ -27,11 +27,6 @@ The Project uses other Open Source Projects as follows
 * jQuery-Rotate
 * jQuery-UI-Punch
 
-## Donation
-
-If you like this Project, you can make a donation:
-[Donate with PayPal](https://www.paypal.com/cgi-bin/webscr?cmd=_s-xclick&hosted_button_id=73YAZKQQD6LML)
-
 ## Roadmap
 
 * Export to Cewe Photobook File
@@ -42,4 +37,4 @@ If you like this Project, you can make a donation:
 * UI for Mobil/Touch Devices
 * Install File
 * Image Import from various Sources like Facebook or Flickr
-* Add / Delete Photobooks
+
