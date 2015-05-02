@@ -9,9 +9,6 @@ if($AccountID>0){
 			@unlink('preview-book/'.$row->Bild);
 		}
 		$mysqli->query("DELETE FROM ".$prefix."Book WHERE UserID = '".$AccountID."' AND ID = '".$id."'");
-		$mysqli->query("DELETE FROM ".$prefix."Page WHERE UserID = '".$AccountID."' AND BookID = '".$id."'");
-		$mysqli->query("DELETE FROM ".$prefix."Element WHERE UserID = '".$AccountID."' AND BookID = '".$id."'");
-		$mysqli->query("DELETE FROM ".$prefix."Text WHERE UserID = '".$AccountID."' AND BookID = '".$id."'");
 	}
 }
 ?>

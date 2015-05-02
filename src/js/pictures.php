@@ -3,14 +3,19 @@ header('Content-type: text/javascript');
 
 require('../php/sql.php');
 
+// Get the ID of the requested photobook
 $bid = intval($_REQUEST['bid']);
 
 if($AccountID>0){
 	$result = $mysqli->query("SELECT * FROM ".$prefix."Book WHERE ID = '".$bid."' AND UserID = '".$AccountID."'");
 	if($result->num_rows == 1){
 		$Photobook = $result->fetch_object();
-		
+
+		// let the script know which photobook we are modifying
 		echo "var bookid = ".$bid."\n";
+		
+		
+		// get all pictures from all galleries to use for the photobook
 		$abfrage = "SELECT ID FROM ".$prefix."Picture WHERE UserID = '".$AccountID."' ORDER BY ID ASC";
 		$ergebnis=$mysqli->query($abfrage);
 		$out = array();
@@ -28,6 +33,7 @@ if($AccountID>0){
 		echo "var elementID = ".$maxid.";\n";
 		
 		
+		// get the picture-elements placed on the photobook on site 1
 		$abfrage = "SELECT `Name` AS `id`,`X` AS `left`,`Y` AS `top`,`W` AS `width`,`H` AS `height`,`R` AS `rotate`,`PictureID` AS `pid`,Z FROM ".$prefix."Element WHERE BookID = '".$bid."' AND Page = '1' ORDER BY `Z` ASC";
 		$ergebnis=$mysqli->query($abfrage);
 		$out = array();
@@ -52,7 +58,8 @@ if($AccountID>0){
 		$maxid = $ergebnis->fetch_object()->Auto_increment;
 		echo "var textID = ".$maxid.";\n";
 		
-		
+
+		// get the text-elements placed on the photobook on site 1 
 		$abfrage = "SELECT `Name` AS `id`,`X` AS `left`,`Y` AS `top`,`R` AS `rotate`,`Text` AS `text`,`Size` AS `size`,Z FROM ".$prefix."Text WHERE BookID = '".$bid."' AND Page = '1' AND `Text` <> '' ORDER BY `Z` ASC";
 		$ergebnis=$mysqli->query($abfrage);
 		$out = array();
@@ -69,6 +76,8 @@ if($AccountID>0){
 		echo json_encode($out);
 		echo ";";
 	}else{
+	
+		// write empty variables if the photobook does not belong the user
 		echo '
 var bookid = 0
 var pictureids = [];

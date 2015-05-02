@@ -11,8 +11,6 @@ if($AccountID>0){
 			@unlink('preview/'.$row->NameOnServer);
 		}
 		$mysqli->query("DELETE FROM ".$prefix."Gallery WHERE UserID = '".$AccountID."' AND ID = '".$id."'");
-		$mysqli->query("DELETE FROM `".$prefix."Element` WHERE PictureID IN ( SELECT ID FROM `".$prefix."Picture` WHERE UserID = '".$AccountID."' AND GalleryID = '".$id."')");
-		$mysqli->query("DELETE FROM ".$prefix."Picture WHERE UserID = '".$AccountID."' AND GalleryID = '".$id."'");
 	}
 }
 

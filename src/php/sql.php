@@ -27,7 +27,7 @@ if(strlen($token)==64){
 if($SessionID == 0){
 	$token = createSessionID(64);
 	setcookie("Session",$token);
-	$mysqli->query("INSERT INTO ".$prefix."Session (Cookie) VALUES ('".$token."')");
+	$mysqli->query("INSERT INTO ".$prefix."Session (Cookie,Time) VALUES ('".$token."','".time()."')");
 	$SessionID = $mysqli->insert_id;
 
 }

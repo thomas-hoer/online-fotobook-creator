@@ -1,4 +1,4 @@
-For install the online fotobook creator you have to create the tables defined in the 'install.sql' file. Also you have to modifiy the credentials for the SQL database connection in the 'sql.php' file in the 'php' folder. 
+For install the online fotobook creator you have to create the tables defined in the 'install.sql' file. Also you have to modifiy the credentials for the MySQL database connection in the 'sql.php' file in the 'php' folder. 
 
 We are going to create a install script sonn.
 At this time of development different stages of code might not be compatible.

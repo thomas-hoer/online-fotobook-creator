@@ -4,7 +4,7 @@ $mail = $mysqli->real_escape_string($_REQUEST['mail']);
 $pw1 = sha1($mysqli->real_escape_string($_REQUEST['password']));
 $pw2 = sha1($mysqli->real_escape_string($_REQUEST['password2']));
 if($login != '' && $pw1 == $pw2){
-	$result = $mysqli->query("SELECT ID FROM ".$prefix."User WHERE Name = '"$login."'");
+	$result = $mysqli->query("SELECT ID FROM ".$prefix."User WHERE Name = '".$login."'");
 	if($result->num_rows == 0){
 		$mysqli->query("INSERT INTO ".$prefix."User (Name,Password_SHA1,Mail) VALUES ('".$login."','".$pw1."','".$mail."')");
 		$AccountID = $mysqli->insert_id;
